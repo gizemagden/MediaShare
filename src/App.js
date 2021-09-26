@@ -15,6 +15,7 @@ import Modal from '@material-ui/core/Modal';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
+import ImageUpload from './components/ImageUpload';
 
 const style = {
   position: 'absolute',
@@ -72,16 +73,11 @@ function App() {
         updateProfile(auth.currentUser, {
           displayName: username
         }).then(() => {
-          // Profile updated!
-          // ...
+          setUser({...user, displayName: username });
         }).catch((error) => {
           // An error occurred
-          // ...
         });
-        console.log(user)
-        // setUser(user);
         setIsSignupModalOpened(false);
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -107,6 +103,7 @@ function App() {
 
   return (
     <div className="app">
+      {user?.displayName && <ImageUpload username={user.displayName}/>}
       <Modal
         open={isSignupModalOpened}
         onClose={() => setIsSignupModalOpened(false)}
